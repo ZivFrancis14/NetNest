@@ -9,6 +9,7 @@ class RoomController extends BaseController {
     }
 
     async createRoom(req, res) {
+        
             const { name } = req.body;
         
             if (!name) {
@@ -16,20 +17,20 @@ class RoomController extends BaseController {
             }
         
             try {
-                // Fetch the first scenario from the database
-                const firstScenario = await Scenario.findOne().sort({ scenarioId: 1 });
+              
+                const firstScenario = await Scenario.findOne().sort({ _id: 1 }); // Sorting by `_id` ensures we get the first document by insertion order
         
                 if (!firstScenario) {
                     return res.status(400).json({ message: 'No scenarios available in the database' });
                 }
         
-                // Create the new room with the first scenario as the current scenario
+             
                 const room = await RoomModel.create({
                     roomId: uuidv4(),
                     name,
-                    ownerId: uuidv4(),
+                    ownerId: uuidv4(), 
                     joinCode: uuidv4(),
-                    currentScenarioId: firstScenario.scenarioId,
+                    currentScenarioId: firstScenario._id,
                     status: 'New',
                     createdDate: new Date(),
                 });
@@ -38,12 +39,12 @@ class RoomController extends BaseController {
                     room_id: room.roomId,
                     join_code: room.joinCode,
                     owner_id: room.ownerId,
-                    current_scenario_id: room.currentScenarioId,
+                    // current_scenario_id: room.currentScenarioId,
                 });
             } catch (error) {
                 res.status(500).json({ message: 'Error creating room', error });
             }
-        };
+        }
 
     // Join a room using room_id and join_code
     async joinRoom(req, res) {
@@ -64,18 +65,32 @@ class RoomController extends BaseController {
     // Fetch next scenario for a room
     async nextScenario(req, res) {
         const { room_id, owner_id } = req.params;
+
         try {
+            // Verify the room and owner
             const room = await this.model.findOne({ roomId: room_id, ownerId: owner_id });
             if (!room) {
                 return res.status(403).json({ message: 'Unauthorized or invalid room' });
             }
-
-            const scenario = await Scenario.findOne({ roomId: room_id }).sort({ scenarioId: 1 });
-            if (!scenario) {
-                return res.status(404).json({ message: 'No scenarios available' });
+    
+            // Fetch the current scenario
+            const currentScenario = await Scenario.findOne({ _id: room.currentScenarioId });
+            if (!currentScenario) {
+                return res.status(404).json({ message: 'Current scenario not found' });
             }
-
-            res.status(200).json({ scenario_id: scenario.scenarioId, text: scenario.text });
+    
+            // Fetch the next scenario (e.g., by sorting on a field like `scenarioId`)
+            const nextScenario = await Scenario.findOne({ _id: { $gt: room.currentScenarioId } }).sort({ _id: 1 });
+            if (!nextScenario) {
+                return res.status(404).json({ message: 'No more scenarios available' });
+            }
+    
+            // Update the room's currentScenarioId to the next scenario
+            room.currentScenarioId = nextScenario._id;
+            await room.save();
+    
+            // Return the next scenario
+            res.status(200).json({ scenario_id: nextScenario._id, text: nextScenario.text });
         } catch (error) {
             res.status(500).json({ message: 'Error fetching next scenario', error });
         }
