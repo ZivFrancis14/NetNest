@@ -6,45 +6,24 @@ const roomSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: uuidv4, 
-        validate: {
-            validator: function (v) {
-                return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
-            },
-            message: props => `${props.value} is not a valid GUID!`
-        }
+
     },
     name: { type: String, required: true },
     ownerId: {
         type: String,
         required: true,
-        validate: {
-            validator: function (v) {
-                return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
-            },
-            message: props => `${props.value} is not a valid GUID!`
-        }
+        
     },
     joinCode: {
         type: String,
         required: true,
         default: uuidv4,
-        validate: {
-            validator: function (v) {
-                return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
-            },
-            message: props => `${props.value} is not a valid GUID!`
-        }
+       
     },
     currentScenarioId: {
         type: String,
         default: null,
-        validate: {
-            validator: function (v) {
-                // Allow null or a valid GUID
-                return v === null || /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
-            },
-            message: props => `${props.value} is not a valid GUID!`
-        }
+      
     },
     status: {
         type: String,
