@@ -2,6 +2,7 @@ import BaseController from './base_controller.js';
 import RoomModel from '../models/room_model.js';
 import Scenario from '../models/scenario_model.js';
 import { v4 as uuidv4 } from 'uuid';
+import mongoose from 'mongoose';
 
 class RoomController extends BaseController {
     constructor() {
@@ -64,37 +65,61 @@ class RoomController extends BaseController {
 
     // Fetch next scenario for a room
     async nextScenario(req, res) {
-        const { room_id, owner_id } = req.params;
-
-        try {
-            // Verify the room and owner
-            const room = await this.model.findOne({ roomId: room_id, ownerId: owner_id });
-            if (!room) {
-                return res.status(403).json({ message: 'Unauthorized or invalid room' });
+      
+            const { room_id, owner_id } = req.params;
+        
+            try {
+                // Step 1: Verify the room and owner
+                const room = await this.model.findOne({ roomId: room_id, ownerId: owner_id });
+                if (!room) {
+                    console.error('Room not found or owner mismatch:', { roomId: room_id, ownerId: owner_id });
+                    return res.status(403).json({ message: 'Unauthorized or invalid room' });
+                }
+        
+                console.log('Room found:', room);
+        
+                // Step 2: Check if currentScenarioId is valid
+                if (!room.currentScenarioId) {
+                    return res.status(404).json({ message: 'Current scenario ID is not set in the room' });
+                }
+        
+                // Step 3: Convert currentScenarioId to ObjectId
+                const currentScenarioId = new mongoose.Types.ObjectId(room.currentScenarioId);
+        
+                // Step 4: Get the current scenario
+                const currentScenario = await Scenario.findOne({ _id: currentScenarioId });
+                if (!currentScenario) {
+                    console.error('Current scenario not found:', { _id: currentScenarioId });
+                    return res.status(404).json({ message: 'Current scenario not found in the database' });
+                }
+        
+                console.log('Current scenario:', currentScenario);
+        
+                // Step 5: Find the next scenario
+                const nextScenario = await Scenario.findOne({ _id: { $gt: currentScenarioId } }).sort({ _id: 1 });
+                if (!nextScenario) {
+                    console.warn('No more scenarios available for:', { _id: currentScenarioId });
+                    return res.status(404).json({ message: 'No more scenarios available' });
+                }
+        
+                console.log('Next scenario:', nextScenario);
+        
+                // Step 6: Update the room's currentScenarioId
+                room.currentScenarioId = nextScenario._id;
+                await room.save();
+        
+                // Step 7: Return the next scenario
+                res.status(200).json({ scenario_id: nextScenario._id, text: nextScenario.text });
+            } catch (error) {
+                console.error('Error fetching next scenario:', error); // Log full error details
+                res.status(500).json({ message: 'Error fetching next scenario', error: error.message || error });
             }
-    
-            // Fetch the current scenario
-            const currentScenario = await Scenario.findOne({ _id: room.currentScenarioId });
-            if (!currentScenario) {
-                return res.status(404).json({ message: 'Current scenario not found' });
-            }
-    
-            // Fetch the next scenario (e.g., by sorting on a field like `scenarioId`)
-            const nextScenario = await Scenario.findOne({ _id: { $gt: room.currentScenarioId } }).sort({ _id: 1 });
-            if (!nextScenario) {
-                return res.status(404).json({ message: 'No more scenarios available' });
-            }
-    
-            // Update the room's currentScenarioId to the next scenario
-            room.currentScenarioId = nextScenario._id;
-            await room.save();
-    
-            // Return the next scenario
-            res.status(200).json({ scenario_id: nextScenario._id, text: nextScenario.text });
-        } catch (error) {
-            res.status(500).json({ message: 'Error fetching next scenario', error });
         }
-    }
-}
+        
+        
+        }
+        
+    
+
 
 export default new RoomController();
