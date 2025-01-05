@@ -3,7 +3,10 @@ POST http://localhost:5000/rooms/create-new-room
 Content-Type: application/json
 
 {
-  "name": "New Room"
+    "roomId": "123e4567-e89b-12d3-a456-426614174000",
+    "currentScenarioId": "63f1e1a2b4d6f123456789ab",
+    "name": "Room 1",
+    "ownerId": "111e4567-e89b-12d3-a456-426614174111"
 }
 
 ###
@@ -14,7 +17,9 @@ Content-Type: application/json
 
 ###
 
-### Get Next Scenario❌
+### Get Next Scenario✔️
+
+###GET /rooms/{room_id}/next-scenario{owner_id}
 GET http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/next-scenario/111e4567-e89b-12d3-a456-426614174111
 
 ###

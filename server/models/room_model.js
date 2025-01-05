@@ -20,7 +20,8 @@ const roomSchema = new mongoose.Schema({
        
     },
     currentScenarioId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Scenario',
         default: null,
     },
     status: {
