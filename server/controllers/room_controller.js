@@ -9,30 +9,41 @@ class RoomController extends BaseController {
     }
 
     async createRoom(req, res) {
-        const { room_name } = req.body;
-      
-        if (!room_name) {
-          return res.status(400).json({ message: 'Room name is required' });
-        }
-      
-        try {
-          const room = await RoomModel.create({
-            roomId: uuidv4(),
-            name: room_name,
-            ownerId: uuidv4(), // For now, simulate ownerId
-            joinCode: uuidv4(),
-            status: 'New',
-          });
-      
-          res.status(201).json({
-            room_id: room.roomId,
-            join_code: room.joinCode,
-            owner_id: room.ownerId,
-          });
-        } catch (error) {
-          res.status(500).json({ message: 'Error creating room', error });
-        }
-    }
+            const { name } = req.body;
+        
+            if (!name) {
+                return res.status(400).json({ message: 'Room name is required' });
+            }
+        
+            try {
+                // Fetch the first scenario from the database
+                const firstScenario = await Scenario.findOne().sort({ scenarioId: 1 });
+        
+                if (!firstScenario) {
+                    return res.status(400).json({ message: 'No scenarios available in the database' });
+                }
+        
+                // Create the new room with the first scenario as the current scenario
+                const room = await RoomModel.create({
+                    roomId: uuidv4(),
+                    name,
+                    ownerId: uuidv4(),
+                    joinCode: uuidv4(),
+                    currentScenarioId: firstScenario.scenarioId,
+                    status: 'New',
+                    createdDate: new Date(),
+                });
+        
+                res.status(201).json({
+                    room_id: room.roomId,
+                    join_code: room.joinCode,
+                    owner_id: room.ownerId,
+                    current_scenario_id: room.currentScenarioId,
+                });
+            } catch (error) {
+                res.status(500).json({ message: 'Error creating room', error });
+            }
+        };
 
     // Join a room using room_id and join_code
     async joinRoom(req, res) {

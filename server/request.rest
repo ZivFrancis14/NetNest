@@ -1,35 +1,73 @@
-### 
-#Create a New Room ✔️
+### Create a New Room✔️
 POST http://localhost:5000/rooms/create-new-room
 Content-Type: application/json
 
 {
-  "name": "Room 1"
+  "name": "New Room"
 }
 
-### 
-#Join a Room ✔️
-POST http://localhost:5000/rooms/a28d268d-3e00-4d2f-bfca-82db43040267/join/60b52fb6-0063-4da3-a134-85d1c8acddbc
-Content-Type: application/json
 ###
-#Fetch the Next Scenario
+
+### Join a Room✔️
+POST http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/join/222e4567-e89b-12d3-a456-426614174222
+Content-Type: application/json
+
+###
+
+### Get Next Scenario❌
 GET http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/next-scenario/111e4567-e89b-12d3-a456-426614174111
 
 ###
-#Submit an Answer
-POST http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/answers Content-Type: application/json
 
-{ "scenario_id": 1, "answer": true, "comment": "This is my answer", "user_id": "111e4567-e89b-12d3-a456-426614174222" }
+### Submit an Answer❌
+POST http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/answers
+Content-Type: application/json
 
-####
-#Fetch Statistics
+{
+  "scenario_id": 1,
+  "answer": true,
+  "comment": "This is my answer",
+  "user_id": "111e4567-e89b-12d3-a456-426614174111"
+}
 
+###
+
+### Get Statistics❌
 GET http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/statistics/1
 
 ###
-#Process a Scenario (Optional if applicable)
 
-POST http://localhost:5000/scenarios/process Content-Type: application/json
+### Process a Scenario❌
+POST http://localhost:5000/scenarios/process
+Content-Type: application/json
 
-{ "scenario_id": 1, "text": "Rewrite this scenario using AI." }
+{
+  "text": "Rewrite this scenario using AI."
+}
+
 ###
+
+### Create a User❌
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+  "name": "Charlie",
+  "email": "charlie@example.com",
+  "password": "securepassword3"
+}
+
+###
+
+### Get All Users❌
+GET http://localhost:5000/users
+
+###
+
+### Get a Single User ❌
+GET http://localhost:5000/users/111e4567-e89b-12d3-a456-426614174111
+
+###
+
+### Delete a User
+DELETE http://localhost:5000/users/111e4567-e89b-12d3-a456-426614174111
