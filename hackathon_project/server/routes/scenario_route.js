@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const scenarioController = require('../controllers/scenario_controller');
+import express from 'express';
+import scenarioController from '../controllers/scenario_controller.js';
 
+const router = express.Router();
 
 router.post('/', (req, res) => scenarioController.create(req, res));
 router.get('/', (req, res) => scenarioController.getAll(req, res));
@@ -11,4 +11,4 @@ router.delete('/:id', (req, res) => scenarioController.delete(req, res));
 
 
 
-module.exports = router;
+export default router;

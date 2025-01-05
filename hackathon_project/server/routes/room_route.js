@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import roomController from '../controllers/room_controller.js';
+
 const router = express.Router();
-const roomController = require('../controllers/room_controller');
 
 
 router.post('/', (req, res) => roomController.create(req, res));
@@ -16,4 +17,4 @@ router.get('/:room_id/next-scenario/:owner_id', (req, res) => roomController.nex
 
 
 
-module.exports = router;
+export default router;

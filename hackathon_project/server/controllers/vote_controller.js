@@ -1,5 +1,5 @@
-const BaseController = require('../controllers/base_controller');
-const Vote = require('../models/vote_model');
+import BaseController from './base_controller.js';
+import Vote from '../models/vote_model.js';
 
 class VoteController extends BaseController {
     constructor() {
@@ -34,4 +34,4 @@ class VoteController extends BaseController {
     
  
 }
-module.exports = new VoteController();
+export default VoteController();

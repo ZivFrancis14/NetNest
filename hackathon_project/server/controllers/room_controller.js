@@ -1,10 +1,10 @@
-const BaseController = require('../controllers/base_controller');
-const Room = require('../models/room_model');
-const Scenario = require('../models/scenario_model');
+import BaseController from './base_controller.js';
+import RoomModel from '../models/room_model.js';
+import Scenario from '../models/scenario_model.js';
 
 class RoomController extends BaseController {
     constructor() {
-        super(Room);
+        super(RoomModel);
     }
 
     // Join a room using room_id and join_code
@@ -44,4 +44,4 @@ class RoomController extends BaseController {
     }
 }
 
-module.exports = new RoomController();
+export default new RoomController();
