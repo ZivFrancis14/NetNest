@@ -8,4 +8,4 @@ class ScenarioController extends BaseController {
 
  
 }
-export default ScenarioController();
+export default new ScenarioController();

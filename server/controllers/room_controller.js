@@ -1,10 +1,37 @@
 import BaseController from './base_controller.js';
 import RoomModel from '../models/room_model.js';
 import Scenario from '../models/scenario_model.js';
+import { v4 as uuidv4 } from 'uuid';
 
 class RoomController extends BaseController {
     constructor() {
         super(RoomModel);
+    }
+
+    async createRoom(req, res) {
+        const { room_name } = req.body;
+      
+        if (!room_name) {
+          return res.status(400).json({ message: 'Room name is required' });
+        }
+      
+        try {
+          const room = await RoomModel.create({
+            roomId: uuidv4(),
+            name: room_name,
+            ownerId: uuidv4(), // For now, simulate ownerId
+            joinCode: uuidv4(),
+            status: 'New',
+          });
+      
+          res.status(201).json({
+            room_id: room.roomId,
+            join_code: room.joinCode,
+            owner_id: room.ownerId,
+          });
+        } catch (error) {
+          res.status(500).json({ message: 'Error creating room', error });
+        }
     }
 
     // Join a room using room_id and join_code
@@ -16,7 +43,7 @@ class RoomController extends BaseController {
                 return res.status(404).json({ status: false, ErrorMessage: 'Invalid room ID or join code' });
             }
 
-            const userId = 'GENERATE_USER_ID'; // Replace with your user logic
+            const userId =  uuidv4(); //create a new user id
             res.status(200).json({ status: true, user_id: userId });
         } catch (error) {
             res.status(500).json({ message: 'Error joining room', error });

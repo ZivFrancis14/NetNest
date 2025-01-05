@@ -34,4 +34,4 @@ class VoteController extends BaseController {
     
  
 }
-export default VoteController();
+export default new VoteController();

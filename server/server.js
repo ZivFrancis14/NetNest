@@ -21,27 +21,24 @@ app.use(cors({
 app.use(express.json());
 
 // Routes for different functionalities
-app.use('/room', roomRoutes);
+app.use('/rooms', roomRoutes);
 app.use('/scenario', scenarioRoutes);
 app.use('/user', userRoutes);
 app.use('/vote', voteRoutes);
 
 // Connect to MongoDB
-mongoose.connect(process.env.DB_CONNECTION, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.DB_CONNECTION)
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log('Connected to MongoDB');
     return true;
   })
   .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
-    throw error;  // Exit the application if DB connection fails
+    console.error('Error connecting to MongoDB:', error);
+    throw error;
   });
 
 // Start the server
-const PORT = process.env.PORT || 3000; // Fallback to port 3000 if PORT is not in .env
+const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -11,7 +11,6 @@ const roomSchema = new mongoose.Schema({
     name: { type: String, required: true },
     ownerId: {
         type: String,
-        required: true,
         
     },
     joinCode: {
