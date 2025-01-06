@@ -1,7 +1,7 @@
-import { Router } from 'express';
-const router = Router();
-import scenarioController from '../controllers/scenario_controller';
+import express from 'express';
+import scenarioController from '../controllers/scenario_controller.js';
 
+const router = express.Router();
 
 router.post('/', (req, res) => scenarioController.create(req, res));
 router.get('/', (req, res) => scenarioController.getAll(req, res));

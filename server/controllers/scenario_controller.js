@@ -1,9 +1,9 @@
-import BaseController from '../controllers/base_controller';
-import Scenario from '../models/scenario_model';
+import BaseController from './base_controller.js';
+import ScenarioModel from '../models/scenario_model.js';
 
 class ScenarioController extends BaseController {
     constructor() {
-        super(Scenario); 
+        super(ScenarioModel); 
     }
 
  

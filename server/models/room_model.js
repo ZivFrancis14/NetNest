@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid'; 
+import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
-const roomSchema = new Schema({
+const roomSchema = new mongoose.Schema({
     roomId: {
         type: String,
         required: true,
@@ -11,7 +11,6 @@ const roomSchema = new Schema({
     name: { type: String, required: true },
     ownerId: {
         type: String,
-        required: true,
         
     },
     joinCode: {
@@ -21,9 +20,9 @@ const roomSchema = new Schema({
        
     },
     currentScenarioId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Scenario',
         default: null,
-      
     },
     status: {
         type: String,
@@ -36,5 +35,5 @@ const roomSchema = new Schema({
     }
 });
 
-const roomModel = model('Room', roomSchema);
-export default roomModel;
+const RoomModel = mongoose.model('Room', roomSchema);
+export default RoomModel;

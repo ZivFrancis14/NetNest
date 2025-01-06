@@ -10,5 +10,6 @@ const scenarioSchema = new mongoose.Schema({
     }
 });
 
-const scenarioModel = mongoose.model('Scenario', scenarioSchema);
-module.exports = scenarioModel;
+const ScenarioModel = mongoose.model('Scenario', scenarioSchema);
+export default ScenarioModel;
+

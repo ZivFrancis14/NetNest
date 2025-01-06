@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
     userId: { 
         type: String,
         required: true,
@@ -16,5 +16,5 @@ const userSchema = new Schema({
     }
 });
 
-const userModel = model('User', userSchema);
-export default userModel;
+const UserModel = mongoose.model('User', userSchema);
+export default UserModel;

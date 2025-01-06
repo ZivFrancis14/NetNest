@@ -21,5 +21,5 @@ const voteSchema = new mongoose.Schema({
     }
 });
 
-const voteModel = mongoose.model('Vote', voteSchema);
-module.exports = voteModel;
+const VoteModel = mongoose.model('Vote', voteSchema);
+export default VoteModel;

@@ -1,6 +1,6 @@
-import { Router } from 'express';
-const router = Router();
-import voteController from '../controllers/vote_controller';
+import express from 'express';
+const router = express.Router();
+import voteController from '../controllers/vote_controller.js';
 
 
 router.post('/', (req, res) => voteController.create(req, res));

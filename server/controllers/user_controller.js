@@ -1,9 +1,9 @@
-import BaseController from '../controllers/base_controller';
-import User from '../models/user_model';
+import BaseController from './base_controller.js';
+import UserModel from '../models/user_model.js';
 
 class UserController extends BaseController {
     constructor() {
-        super(User); 
+        super(UserModel); 
     }
 
  
