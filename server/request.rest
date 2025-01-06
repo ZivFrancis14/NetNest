@@ -51,8 +51,8 @@ Content-Type: application/json
 
 ###
 
-### Create a User❌
-POST http://localhost:5000/users
+### Create a User✔️
+POST http://localhost:5000/user
 Content-Type: application/json
 
 {
@@ -63,15 +63,15 @@ Content-Type: application/json
 
 ###
 
-### Get All Users❌
-GET http://localhost:5000/users
+### Get All Users✔️
+GET http://localhost:5000/user
 
 ###
 
-### Get a Single User ❌
-GET http://localhost:5000/users/111e4567-e89b-12d3-a456-426614174111
+### Get a Single User by objectID✔️
+GET http://localhost:5000/user/677c3c58283917ff580c7e58
 
 ###
 
-### Delete a User
-DELETE http://localhost:5000/users/111e4567-e89b-12d3-a456-426614174111
+### Delete a User✔️
+DELETE http://localhost:5000/user/677c3c58283917ff580c7e58
