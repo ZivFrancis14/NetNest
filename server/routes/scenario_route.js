@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const scenarioController = require('../controllers/scenario_controller');
+import { Router } from 'express';
+const router = Router();
+import scenarioController from '../controllers/scenario_controller';
 
 
 router.post('/', (req, res) => scenarioController.create(req, res));
@@ -11,4 +11,4 @@ router.delete('/:id', (req, res) => scenarioController.delete(req, res));
 
 
 
-module.exports = router;
+export default router;

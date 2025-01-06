@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Room = require('../models/room_model');
+const Room = require('../models/room_model').default;
 const Scenario = require('../models/scenario_model');
 const Vote = require('../models/vote_model');
 

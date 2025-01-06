@@ -1,5 +1,5 @@
-const BaseController = require('../controllers/base_controller');
-const Scenario = require('../models/scenario_model');
+import BaseController from '../controllers/base_controller';
+import Scenario from '../models/scenario_model';
 
 class ScenarioController extends BaseController {
     constructor() {
@@ -8,4 +8,4 @@ class ScenarioController extends BaseController {
 
  
 }
-module.exports = new ScenarioController();
+export default new ScenarioController();

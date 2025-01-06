@@ -1,6 +1,6 @@
-const BaseController = require('../controllers/base_controller');
-const Room = require('../models/room_model');
-const Scenario = require('../models/scenario_model');
+import BaseController from '../controllers/base_controller';
+import Room from '../models/room_model';
+import { findOne } from '../models/scenario_model';
 
 class RoomController extends BaseController {
     constructor() {
@@ -32,7 +32,7 @@ class RoomController extends BaseController {
                 return res.status(403).json({ message: 'Unauthorized or invalid room' });
             }
 
-            const scenario = await Scenario.findOne({ roomId: room_id }).sort({ scenarioId: 1 });
+            const scenario = await findOne({ roomId: room_id }).sort({ scenarioId: 1 });
             if (!scenario) {
                 return res.status(404).json({ message: 'No scenarios available' });
             }
@@ -44,4 +44,4 @@ class RoomController extends BaseController {
     }
 }
 
-module.exports = new RoomController();
+export default new RoomController();

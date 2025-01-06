@@ -1,5 +1,5 @@
-const BaseController = require('../controllers/base_controller');
-const Vote = require('../models/vote_model');
+import BaseController from '../controllers/base_controller';
+import Vote, { create, find } from '../models/vote_model';
 
 class VoteController extends BaseController {
     constructor() {
@@ -10,7 +10,7 @@ class VoteController extends BaseController {
         const { scenario_id, answer, comment, user_id } = req.body;
     
         try {
-            const vote = await Vote.create({ roomId: room_id, scenarioId: scenario_id, answer, comment, userId: user_id });
+            const vote = await create({ roomId: room_id, scenarioId: scenario_id, answer, comment, userId: user_id });
             res.status(201).json({ status: true, vote });
         } catch (error) {
             res.status(500).json({ message: 'Error submitting answer', error });
@@ -21,7 +21,7 @@ class VoteController extends BaseController {
         const { room_id, scenario_id } = req.params;
     
         try {
-            const votes = await Vote.find({ roomId: room_id, scenarioId: scenario_id });
+            const votes = await find({ roomId: room_id, scenarioId: scenario_id });
             const correct = votes.filter(v => v.answer === true).length;
             const incorrect = votes.filter(v => v.answer === false).length;
     
@@ -34,4 +34,4 @@ class VoteController extends BaseController {
     
  
 }
-module.exports = new VoteController();
+export default new VoteController();

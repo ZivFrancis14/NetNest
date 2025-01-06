@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const voteController = require('../controllers/vote_controller');
+import { Router } from 'express';
+const router = Router();
+import voteController from '../controllers/vote_controller';
 
 
 router.post('/', (req, res) => voteController.create(req, res));
@@ -14,4 +14,4 @@ router.get('/:room_id/statistics/:scenario_id', (req, res) => voteController.get
 
 
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const voteSchema = new mongoose.Schema({
     voteId: { 
         type: Number,

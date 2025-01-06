@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid'); 
+import { Schema, model } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid'; 
 
-const roomSchema = new mongoose.Schema({
+const roomSchema = new Schema({
     roomId: {
         type: String,
         required: true,
@@ -36,5 +36,5 @@ const roomSchema = new mongoose.Schema({
     }
 });
 
-const roomModel = mongoose.model('Room', roomSchema);
-module.exports = roomModel;
+const roomModel = model('Room', roomSchema);
+export default roomModel;
