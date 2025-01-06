@@ -4,27 +4,32 @@
 }
 
 .appHeader {
-  background-color: #53474F;
+  background-color: white;
   padding: 5px 30px 5px 30px;
-  color: white;
+  color: rgb(212, 51, 169);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .appLogo {
   height: 100px;
+  margin-right: 20px;
 }
 
 .appNav {
   display: flex;
+  justify-content: center;  
   gap: 20px;
 }
 
 .appLink {
-  color: white;
+  color: rgb(212, 51, 169);
   text-decoration: none;
+  font-weight: bold;
   font-size: 1.2em;
+  margin: 10px 100px;
+  
 }
 
 .appLink:hover {
