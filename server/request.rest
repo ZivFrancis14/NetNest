@@ -12,7 +12,7 @@ Content-Type: application/json
 ###
 
 ### Join a Room✔️
-POST http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/join/222e4567-e89b-12d3-a456-426614174222
+POST http://localhost:5000/rooms/fc4d2dec-e754-435d-a635-540383dab6c1/join/05ed1b0c-db3d-43a9-bc7f-09a1a3e2e0fe
 Content-Type: application/json
 
 ###
@@ -20,7 +20,7 @@ Content-Type: application/json
 ### Get Next Scenario✔️
 
 ###GET /rooms/{room_id}/next-scenario{owner_id}
-GET http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/next-scenario/111e4567-e89b-12d3-a456-426614174111
+GET http://localhost:5000/rooms/fc4d2dec-e754-435d-a635-540383dab6c1/next-scenario/5b302dc6-1a09-445d-ae01-d4b06c741b82
 
 ###
 
