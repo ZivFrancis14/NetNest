@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid');
+import { Schema, model } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
     userId: { 
         type: String,
         required: true,
@@ -16,5 +16,5 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-const userModel = mongoose.model('User', userSchema);
-module.exports = userModel;
+const userModel = model('User', userSchema);
+export default userModel;

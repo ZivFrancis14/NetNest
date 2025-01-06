@@ -1,29 +1,44 @@
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import rubberDuckRoutes from './routes/rubberDucks.js'; // Import the routes
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import roomRoutes from './routes/room_route.js';
+import scenarioRoutes from './routes/scenario_route.js';
+import userRoutes from './routes/user_route.js';
+import voteRoutes from './routes/vote_route.js';
 
 dotenv.config();
 
 const app = express();
 
-app.use(express.json());
-app.use('/images', express.static(path.join(__dirname, 'images'))); // Serve static images
-
+// Enable CORS for requests from the frontend
 app.use(cors({
-  origin: process.env.CLIENT_URL
+  origin: process.env.CLIENT_URL,
 }));
 
-// Use the routes file for all `/ducks` routes
-app.use('/ducks', rubberDuckRoutes);
+// Middleware to parse JSON requests
+app.use(express.json());
 
-// Start server
-const PORT = process.env.PORT;
+// Routes for different functionalities
+app.use('/rooms', roomRoutes);
+app.use('/scenario', scenarioRoutes);
+app.use('/user', userRoutes);
+app.use('/vote', voteRoutes);
+
+// Connect to MongoDB
+mongoose.connect(process.env.DB_CONNECTION)
+  .then(() => {
+    console.log('Connected to MongoDB');
+    return true;
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+    throw error;
+  });
+
+// Start the server
+const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
