@@ -1,0 +1,78 @@
+[
+    {
+      "scenarioId": 1,
+      "text": "A stranger sends you a direct message on Instagram, saying they are your age and want to be friends. They ask for your personal details like your school name or phone number.",
+      "riskLevel": "high"
+    },
+    {
+      "scenarioId": 2,
+      "text": "Someone you don’t know on Snapchat sends you a message saying they have seen embarrassing photos of you online and threatens to share them unless you send more pictures.",
+      "riskLevel": "high"
+    },
+    {
+      "scenarioId": 3,
+      "text": "A classmate starts leaving mean comments on your TikTok videos, making fun of your appearance. Other students begin liking and replying to the comments.",
+      "riskLevel": "high"
+    },
+    {
+      "scenarioId": 4,
+      "text": "You get a message from someone pretending to be a famous influencer, asking you to click a link to join an exclusive fan club.",
+      "riskLevel": "high"
+    },
+    {
+      "scenarioId": 5,
+      "text": "A popular student in your school adds you to a WhatsApp group chat where everyone shares jokes. However, they start teasing and excluding another student in the group.",
+      "riskLevel": "medium"
+    },
+    {
+      "scenarioId": 6,
+      "text": "You join a new Discord server for gaming, and someone in the chat starts sending you private messages asking for personal photos.",
+      "riskLevel": "high"
+    },
+    {
+      "scenarioId": 7,
+      "text": "You post a selfie on Instagram, and someone you don’t know starts commenting about how pretty you are and asks you to follow them back.",
+      "riskLevel": "medium"
+    },
+    {
+      "scenarioId": 8,
+      "text": "You decide to post your vacation plans on social media, including details about where you’re going and when you’ll be back.",
+      "riskLevel": "medium"
+    },
+    {
+      "scenarioId": 9,
+      "text": "You are playing an online multiplayer game, and someone starts harassing you in the chat, calling you names and telling you to quit the game.",
+      "riskLevel": "high"
+    },
+    {
+      "scenarioId": 10,
+      "text": "A teacher shares an online safety tip in class, advising you never to click on unfamiliar links or share passwords with anyone.",
+      "riskLevel": "low"
+    },
+    {
+      "scenarioId": 11,
+      "text": "You decide to change your social media settings to make your account private so only friends can see your posts.",
+      "riskLevel": "low"
+    },
+    {
+      "scenarioId": 12,
+      "text": "You receive an email from what appears to be your school administration, asking you to click a link to access your grades. The email address looks slightly suspicious.",
+      "riskLevel": "high"
+    },
+    {
+      "scenarioId": 13,
+      "text": "You see a classmate oversharing details about their family problems on Instagram Stories. You are unsure if they realize how public their posts are.",
+      "riskLevel": "medium"
+    },
+    {
+      "scenarioId": 14,
+      "text": "A friend sends you a link to a fun-looking online quiz. When you open it, the website asks for your name and email to show the results.",
+      "riskLevel": "medium"
+    },
+    {
+      "scenarioId": 15,
+      "text": "You block someone on a social media platform after they keep sending you inappropriate messages, but they create a new account and contact you again.",
+      "riskLevel": "high"
+    }
+  ]
+  

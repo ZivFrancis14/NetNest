@@ -2,22 +2,25 @@ import mongoose from 'mongoose';
 import RoomModel from '../models/room_model.js';
 import ScenarioModel from '../models/scenario_model.js';
 import VoteModel from '../models/vote_model.js';
-import UserModel from '../models/user_model.js'; // Add UserModel import
+import UserModel from '../models/user_model.js'; 
 import dotenv from 'dotenv';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Load environment variables from .env file
-dotenv.config({ path: path.resolve('./.env') });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Main mock data creation function
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+console.log('DB_CONNECTION:', process.env.DB_CONNECTION);
+
 const createMockData = async () => {
     try {
-        // Check if DB_CONNECTION is defined
+    
         if (!process.env.DB_CONNECTION) {
             throw new Error('DB_CONNECTION environment variable is not defined');
         }
 
-        // Connect to MongoDB
+  
         await mongoose.connect(process.env.DB_CONNECTION, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -25,31 +28,25 @@ const createMockData = async () => {
 
         console.log('Connected to MongoDB');
 
-        // Clear existing collections
+        
         await RoomModel.deleteMany({});
         await ScenarioModel.deleteMany({});
         await VoteModel.deleteMany({});
-        await UserModel.deleteMany({}); // Clear user collection
+        await UserModel.deleteMany({}); 
 
-        // Create mock users
         await UserModel.create([
             {
                 userId: "111e4567-e89b-12d3-a456-426614174111",
-                name: "Alice",
-                email: "alice@example.com",
-                password: "securepassword1", // Ideally hashed in a real scenario
-                createdDate: new Date(),
+                roomId: "123e4567-e89b-12d3-a456-426614174000",
             },
             {
                 userId: "211e4567-e89b-12d3-a456-426614174112",
-                name: "Bob",
-                email: "bob@example.com",
-                password: "securepassword2", // Ideally hashed in a real scenario
-                createdDate: new Date(),
+                roomId: "223e4567-e89b-12d3-a456-426614174001",
             },
         ]);
+        
 
-        // Create mock rooms
+      
         await RoomModel.create([
             {
                 roomId: "123e4567-e89b-12d3-a456-426614174000",
@@ -71,7 +68,7 @@ const createMockData = async () => {
             },
         ]);
 
-        // Create mock scenarios
+  
         await ScenarioModel.create([
             {
                 scenarioId: 1,
@@ -83,7 +80,7 @@ const createMockData = async () => {
             },
         ]);
 
-        // Create mock votes
+ 
         await VoteModel.create([
             {
                 voteId: 1,
@@ -105,10 +102,10 @@ const createMockData = async () => {
     } catch (error) {
         console.error('Error creating mock data:', error);
     } finally {
-        mongoose.connection.close(); // Close the database connection
+        mongoose.connection.close(); 
         console.log('Database connection closed');
     }
 };
 
-// Run the mock data creation function
+
 createMockData();
