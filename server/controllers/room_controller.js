@@ -1,6 +1,7 @@
 import BaseController from './base_controller.js';
 import RoomModel from '../models/room_model.js';
 import Scenario from '../models/scenario_model.js';
+import VoteModel from '../models/vote_model.js';
 import { v4 as uuidv4 } from 'uuid';
 import mongoose from 'mongoose';
 
@@ -19,7 +20,7 @@ class RoomController extends BaseController {
         
             try {
               
-                const firstScenario = await Scenario.findOne().sort({ _id: 1 }); // Sorting by `_id` ensures we get the first document by insertion order
+                const firstScenario = await Scenario.findOne().sort({ _id: 1 }); 
         
                 if (!firstScenario) {
                     return res.status(400).json({ message: 'No scenarios available in the database' });
@@ -47,7 +48,7 @@ class RoomController extends BaseController {
             }
         }
 
-    // Join a room using room_id and join_code
+
     async joinRoom(req, res) {
         const { room_id, join_code } = req.params;
         try {
@@ -63,13 +64,13 @@ class RoomController extends BaseController {
         }
     }
 
-    // Fetch next scenario for a room
+  
     async nextScenario(req, res) {
       
             const { room_id, owner_id } = req.params;
         
             try {
-                // Step 1: Verify the room and owner
+               
                 const room = await this.model.findOne({ roomId: room_id, ownerId: owner_id });
                 if (!room) {
                     console.error('Room not found or owner mismatch:', { roomId: room_id, ownerId: owner_id });
@@ -78,15 +79,15 @@ class RoomController extends BaseController {
         
                 console.log('Room found:', room);
         
-                // Step 2: Check if currentScenarioId is valid
+           
                 if (!room.currentScenarioId) {
                     return res.status(404).json({ message: 'Current scenario ID is not set in the room' });
                 }
         
-                // Step 3: Convert currentScenarioId to ObjectId
+                
                 const currentScenarioId = new mongoose.Types.ObjectId(room.currentScenarioId);
         
-                // Step 4: Get the current scenario
+                
                 const currentScenario = await Scenario.findOne({ _id: currentScenarioId });
                 if (!currentScenario) {
                     console.error('Current scenario not found:', { _id: currentScenarioId });
@@ -95,7 +96,7 @@ class RoomController extends BaseController {
         
                 console.log('Current scenario:', currentScenario);
         
-                // Step 5: Find the next scenario
+                
                 const nextScenario = await Scenario.findOne({ _id: { $gt: currentScenarioId } }).sort({ _id: 1 });
                 if (!nextScenario) {
                     console.warn('No more scenarios available for:', { _id: currentScenarioId });
@@ -104,20 +105,81 @@ class RoomController extends BaseController {
         
                 console.log('Next scenario:', nextScenario);
         
-                // Step 6: Update the room's currentScenarioId
+            
                 room.currentScenarioId = nextScenario._id;
                 await room.save();
         
-                // Step 7: Return the next scenario
+             
                 res.status(200).json({ scenario_id: nextScenario._id, text: nextScenario.text });
             } catch (error) {
-                console.error('Error fetching next scenario:', error); // Log full error details
+                console.error('Error fetching next scenario:', error); 
                 res.status(500).json({ message: 'Error fetching next scenario', error: error.message || error });
             }
         }
-        
-        
+
+        async submitAnswer(req, res) {
+            const { room_id } = req.params;
+            const { scenario_id, answer, comment, user_id } = req.body;
+    
+            try {
+          
+                const room = await this.model.findOne({roomId: room_id });
+                if (!room) {
+                    return res.status(404).json({status:false, message: 'Room not found' });
+                }
+    
+              
+                const scenario = await Scenario.findOne({ scenarioId: scenario_id });
+                if (!scenario) {
+                    return res.status(404).json({status:false, message: 'Scenario not found' });
+                }
+    
+             
+                await VoteModel.create({
+                    voteId: new Date().getTime(), 
+                    scenarioId: scenario_id,
+                    roomId: room_id,
+                    userId: user_id,
+                    answer: answer,
+                    comment: comment || null,
+                    createdDate: new Date(),
+                });
+    
+                return res.status(201).json({ status:true, message: 'Answer submitted successfully' });
+            } catch (error) {
+                console.error('Error submitting answer:', error);
+                res.status(500).json({status:false ,message: 'Error submitting answer', error });
+            }
         }
+        async getStatistics(req, res) { 
+            const { room_id, scenario_id } = req.params;
+        
+            try {
+                const room = await this.model.findOne({ roomId: room_id });
+                if (!room) {
+                    return res.status(404).json({ message: 'Room not found' });
+                }
+                const votes = await VoteModel.find({ roomId: room_id, scenarioId: parseInt(scenario_id) });
+
+                const correct = votes.filter(vote => vote.answer === true).length;
+                const incorrect = votes.filter(vote => vote.answer === false).length;
+
+                return res.status(200).json({ 
+                    statistic:{
+                    correct: correct,
+                    incorrect: incorrect,
+                    }
+                });
+
+            }
+            catch (error) {
+                console.error('Error fetching statistics:', error);
+                res.status(500).json({ message: 'Error fetching statistics', error });
+        }
+
+        
+    }
+}
         
     
 

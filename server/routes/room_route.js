@@ -12,7 +12,8 @@ router.delete('/:id', (req, res) => roomController.delete(req, res));
 
 router.post('/:room_id/join/:join_code', (req, res) => roomController.joinRoom(req, res));
 router.get('/:room_id/next-scenario/:owner_id', (req, res) => roomController.nextScenario(req, res));
-
+router.post('/:room_id/answers', (req, res) => roomController.submitAnswer(req, res));
+router.get('/:room_id/statistics/:scenario_id', (req, res) => roomController.getStatistics(req, res));
 
 
 
