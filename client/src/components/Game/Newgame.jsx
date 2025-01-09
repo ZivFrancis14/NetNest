@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import '../index.css';
 
 const Newgame = () => {
@@ -9,9 +10,11 @@ const Newgame = () => {
         placeholder="Enter game name"
         className="gameInput"
       />
-      <button className="createButton">
+      <Link to="/playgame">
+      <button className="createButton" >
         Create Game
       </button>
+      </Link>
     </div>
     );
   };

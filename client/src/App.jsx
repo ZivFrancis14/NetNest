@@ -5,6 +5,7 @@ import Existgame from './components/game/Existgame';
 import Newgame from './components/game/Newgame';
 import About from './components/AboutandContact/About';
 import Contact from './components/AboutandContact/Contact';
+import Screengame from './components/Game/Screengame';
 
 // import projectLogo from './assets/project-logo.png'
 import safetylogo from './assets/safetylogo.png'
@@ -29,6 +30,7 @@ function App() {
             <Route path="/contact" element={<Contact/>} />
             <Route path="/existgame" element={<Existgame />} />
             <Route path="/newgame" element={<Newgame />} />
+            <Route path="/playgame" element={<Screengame />} />
           </Routes>
         </main>
       </div>
