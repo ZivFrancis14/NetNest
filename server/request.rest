@@ -12,8 +12,8 @@ Content-Type: application/json
 ###
 
 ### Join a Room✔️
-POST http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/join/222e4567-e89b-12d3-a456-426614174222
-Content-Type: application/json
+POST http://localhost:5000/rooms/join/333e4567-e89b-12d3-a456-426614174223
+
 
 ###
 

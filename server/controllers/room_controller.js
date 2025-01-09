@@ -50,17 +50,20 @@ class RoomController extends BaseController {
 
 
     async joinRoom(req, res) {
-        const { room_id, join_code } = req.params;
-        try {
-            const room = await this.model.findOne({ roomId: room_id, joinCode: join_code });
-            if (!room) {
-                return res.status(404).json({ status: false, ErrorMessage: 'Invalid room ID or join code' });
-            }
+        const { joinCode } = req.params;
 
-            const userId =  uuidv4(); //create a new user id
-            res.status(200).json({ status: true, user_id: userId });
+        try {
+          // Find the room using the joinCode
+          const room = await RoomModel.findOne({ joinCode });
+          if (!room) {
+            return res.status(404).json({ status: false, message: 'Invalid join code.' });
+          }
+      
+          // Success: Return room details or confirmation
+          return res.status(200).json({ status: true, message: 'Successfully joined the game', roomId: room.roomId });
         } catch (error) {
-            res.status(500).json({ message: 'Error joining room', error });
+          console.error('Error joining game:', error);
+          res.status(500).json({ status: false, message: 'Internal server error.' });
         }
     }
 
