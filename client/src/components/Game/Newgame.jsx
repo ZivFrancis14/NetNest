@@ -2,10 +2,10 @@ import '../index.css';
 import { useState } from 'react';
 
 function CreateGame() {
-  const [gameName, setGameName] = useState(''); // שם החדר החדש
-  const [message, setMessage] = useState(''); // הודעות הצלחה או שגיאה
-  const [roomDetails, setRoomDetails] = useState(null); // פרטי החדר שנוצר
-  const [gameCreated, setGameCreated] = useState(false); // מעקב אחרי יצירת המשחק
+  const [gameName, setGameName] = useState(''); 
+  const [message, setMessage] = useState(''); 
+  const [roomDetails, setRoomDetails] = useState(null); 
+  const [gameCreated, setGameCreated] = useState(false); 
 
   const handleCreateGame = async () => {
     if (!gameName.trim()) {
@@ -26,16 +26,16 @@ function CreateGame() {
 
       if (response.ok) {
         setMessage('Game created successfully!');
-        setRoomDetails(result); // שמירת פרטי החדר
-        setGameCreated(true); // עדכון שהמשחק נוצר
+        setRoomDetails(result);
+        setGameCreated(true); 
       } else {
         setMessage(result.message || 'Failed to create the game. Please try again.');
-        setRoomDetails(null); // איפוס פרטי החדר אם יש שגיאה
+        setRoomDetails(null);
       }
     } catch (error) {
       console.error('Error creating game:', error);
       setMessage('An error occurred. Please try again later.');
-      setRoomDetails(null); // איפוס פרטי החדר אם יש שגיאה
+      setRoomDetails(null); 
     }
   };
 
