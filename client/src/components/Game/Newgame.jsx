@@ -19,7 +19,7 @@ function CreateGame() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: gameName }), // שליחת שם החדר
+        body: JSON.stringify({ name: gameName }), 
       });
 
       const result = await response.json();
