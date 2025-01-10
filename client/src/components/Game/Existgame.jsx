@@ -1,9 +1,11 @@
 import '../index.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function ExistGame() {
   const [joinCode, setJoinCode] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleJoinGame = async () => {
     try {
@@ -19,6 +21,7 @@ function ExistGame() {
       if (response.ok && result.status) {
         setMessage('Successfully joined the game!');
         console.log('Room ID:', result.roomId); 
+        navigate('/playgame', { state: { roomId: result.roomId } });
       } else {
         setMessage(result.message || 'Failed to join the game. Please check the code.');
       }

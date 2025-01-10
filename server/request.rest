@@ -41,15 +41,15 @@ GET http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/statistics/
 
 ###
 
-### Process a Scenario❌
-POST http://localhost:5000/scenarios/process
-Content-Type: application/json
+# ### Process a Scenario❌
+# POST http://localhost:5000/scenarios/process
+# Content-Type: application/json
 
-{
-  "text": "Rewrite this scenario using AI."
-}
+# {
+#   "text": "Rewrite this scenario using AI."
+# }
 
-###
+# ###
 
 ### Create a User✔️
 POST http://localhost:5000/user
