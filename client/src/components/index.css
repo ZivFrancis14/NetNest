@@ -7,16 +7,15 @@
   padding: 20px;
   margin: 0 auto;
   width: 50%;
-  height: 30%;
+  height: 50%;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h1,h3 {
   color: #df1e85;
-  font-size: 2rem;
   margin-bottom: 20px;
   font-weight: bold;
 }
