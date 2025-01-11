@@ -22,9 +22,9 @@ app.use(express.json());
 
 // Routes for different functionalities
 app.use('/rooms', roomRoutes);
-app.use('/scenario', scenarioRoutes);
-app.use('/user', userRoutes);
-app.use('/vote', voteRoutes);
+app.use('/scenarios', scenarioRoutes);
+app.use('/users', userRoutes);
+app.use('/votes', voteRoutes);
 
 // Connect to MongoDB
 mongoose.connect(process.env.DB_CONNECTION)
