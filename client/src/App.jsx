@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router'
 import Home from './pages/HomePage/HomePage';
 import styles from './styles/App.module.css';
 import Existgame from './components/Game/Existgame';
-import Newgame from './components/game/Newgame';
+import Newgame from './components/Game/Newgame';
 import About from './components/AboutandContact/About';
 import Contact from './components/AboutandContact/Contact';
 import Screengame from './components/Game/Screengame';
