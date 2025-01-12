@@ -1,7 +1,7 @@
 import '../index.css';
 import { useState } from 'react';
 
-function CreateGame() {
+function Newgame() {
   const [gameName, setGameName] = useState(''); 
   const [message, setMessage] = useState(''); 
   const [roomDetails, setRoomDetails] = useState(null); 
@@ -74,4 +74,4 @@ function CreateGame() {
   );
 }
 
-export default CreateGame;
+export default Newgame;
