@@ -1,3 +1,7 @@
+
+### Get All Scenarios
+GET http://localhost:5000/scenarios
+###
 ### Create a New Room✔️
 POST http://localhost:5000/rooms/create-new-room
 Content-Type: application/json

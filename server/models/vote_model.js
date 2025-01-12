@@ -8,7 +8,8 @@ const voteSchema = new mongoose.Schema({
         type: Number, 
         required: true 
     },
-    roomId: { type: String, 
+    roomId: {
+        type: String, 
         required: true 
     },
     answer: { 
