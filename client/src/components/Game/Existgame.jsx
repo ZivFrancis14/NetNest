@@ -21,7 +21,7 @@ function ExistGame() {
       if (response.ok && result.status) {
         setMessage('Successfully joined the game!');
         console.log('Room ID:', result.roomId); 
-        navigate('/playgame', { state: { roomId: result.roomId } });
+        navigate('/usergame', { state: { roomId: result.roomId } });
       } else {
         setMessage(result.message || 'Failed to join the game. Please check the code.');
       }

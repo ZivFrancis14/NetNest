@@ -1,0 +1,74 @@
+.phone-frame {
+    width: 375px;
+    height: 667px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+  }
+  
+  .user-game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100%;
+    font-family: 'Assistant', sans-serif;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .usergame-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-family: 'Assistant', sans-serif;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+  }
+  
+  .correct-button {
+    background-color: #4caf50;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .correct-button:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+  }
+  
+  .incorrect-button {
+    background-color: #f44336;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .incorrect-button:hover {
+    background-color: #e53935;
+    transform: scale(1.1);
+  }
+  
+  .add-situation-button {
+    background-color: #f498d0;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .add-situation-button:hover {
+    background-color: #d07cb0;
+    transform: scale(1.1);
+  }
+  
