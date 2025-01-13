@@ -1,6 +1,7 @@
 import BaseController from './base_controller.js';
 import Vote from '../models/vote_model.js';
 import Scenario from "../models/scenario_model";
+import ScenarioController from "./scenario_controller"
 
 class VoteController extends BaseController {
     constructor() {
@@ -33,9 +34,14 @@ class VoteController extends BaseController {
     
         await newVote.save();
     
-        // TODO: עדכון סטטיסטיקות (כאן אפשר להוסיף לוגיקה לחישוב סטטוס הצבעות)
-    
-        res.status(201).json({ status: true, message: "Answer submitted successfully" });
+        // update statistics
+        const updated = await scenarioController.updateVoteStatistics(scenario_id, answer);
+        if (!updated) {
+            return res.status(500).json({ status: false, message: "Failed to update vote statistics" });
+          }
+
+        
+        res.status(201).json({ status: true, message: "Answer submitted successfully and statistics updated successfully" });
       } catch (error) {
         console.error("Error submitting answer:", error);
         res.status(500).json({ status: false, message: "Internal server error" });
