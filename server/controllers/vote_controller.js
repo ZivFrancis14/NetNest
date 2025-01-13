@@ -1,7 +1,7 @@
 import BaseController from './base_controller.js';
 import Vote from '../models/vote_model.js';
-import Scenario from "../models/scenario_model";
 import RoomModel from '../models/room_model.js';
+import ScenarioModel from '../models/scenario_model.js';
 
 class VoteController extends BaseController {
     constructor() {
@@ -18,7 +18,7 @@ class VoteController extends BaseController {
         }
     
         // check scenario corect
-        const scenario = await Scenario.findById(scenario_id);
+        const scenario = await ScenarioModel.findById(scenario_id);
         if (!scenario) {
           return res.status(404).json({ status: false, message: "Scenario not found" });
         }
