@@ -1,14 +1,14 @@
 import BaseController from './base_controller.js';
 import Vote from '../models/vote_model.js';
 import Scenario from "../models/scenario_model";
-import ScenarioController from "./scenario_controller"
+import RoomModel from '../models/room_model.js';
 
 class VoteController extends BaseController {
     constructor() {
         super(Vote); 
     }
     
-    async create(req, res){
+    async submitAnswer(req, res){
         const { room_id } = req.params;
         const { scenario_id, answer, comment, user_id } = req.body;
  
@@ -34,19 +34,44 @@ class VoteController extends BaseController {
     
         await newVote.save();
     
-        // update statistics
-        const updated = await scenarioController.updateVoteStatistics(scenario_id, answer);
-        if (!updated) {
-            return res.status(500).json({ status: false, message: "Failed to update vote statistics" });
-          }
-
-        
-        res.status(201).json({ status: true, message: "Answer submitted successfully and statistics updated successfully" });
+      
+    
+        res.status(201).json({ status: true, message: "Answer submitted successfully" });
       } catch (error) {
         console.error("Error submitting answer:", error);
         res.status(500).json({ status: false, message: "Internal server error" });
       }
     };
+
+    async getStatistics(req, res) {
+      const { room_id, scenario_id } = req.params;
+  
+      try {
+        
+          const room = await RoomModel.findOne({ roomId: room_id });
+          if (!room) {
+              return res.status(404).json({ status: false, message: 'Room not found' });
+          }
+  
+      
+          const votes = await Vote.find({ roomId: room_id, scenarioId: scenario_id });
+  
+          const correct = votes.filter(vote => vote.answer === true).length;
+          const incorrect = votes.filter(vote => vote.answer === false).length;
+  
+          return res.status(200).json({
+              status: true,
+              statistics: {
+                  correct,
+                  incorrect,
+              },
+          });
+      } catch (error) {
+          console.error('Error fetching statistics:', error);
+          return res.status(500).json({ status: false, message: 'Internal server error' });
+      }
+  }
+  
     
 }
 export default new VoteController();

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { type } from 'server/reply';
+// import { type } from 'server/reply';
 const scenarioSchema = new mongoose.Schema({
     scenarioId: { 
         type: Number,

@@ -1,7 +1,7 @@
 import BaseController from './base_controller.js';
 import RoomModel from '../models/room_model.js';
 import Scenario from '../models/scenario_model.js';
-import VoteModel from '../models/vote_model.js';
+// import VoteModel from '../models/vote_model.js';
 import { v4 as uuidv4 } from 'uuid';
 import mongoose from 'mongoose';
 
@@ -120,68 +120,7 @@ class RoomController extends BaseController {
             }
         }
 
-        async submitAnswer(req, res) {
-            const { room_id } = req.params;
-            const { scenario_id, answer, comment, user_id } = req.body;
-    
-            try {
-          
-                const room = await this.model.findOne({roomId: room_id });
-                if (!room) {
-                    return res.status(404).json({status:false, message: 'Room not found' });
-                }
-    
-              
-                const scenario = await Scenario.findOne({ scenarioId: scenario_id });
-                if (!scenario) {
-                    return res.status(404).json({status:false, message: 'Scenario not found' });
-                }
-    
-             
-                await VoteModel.create({
-                    voteId: new Date().getTime(), 
-                    scenarioId: scenario_id,
-                    roomId: room_id,
-                    userId: user_id,
-                    answer: answer,
-                    comment: comment || null,
-                    createdDate: new Date(),
-                });
-    
-                return res.status(201).json({ status:true, message: 'Answer submitted successfully' });
-            } catch (error) {
-                console.error('Error submitting answer:', error);
-                res.status(500).json({status:false ,message: 'Error submitting answer', error });
-            }
-        }
-        async getStatistics(req, res) { 
-            const { room_id, scenario_id } = req.params;
-        
-            try {
-                const room = await this.model.findOne({ roomId: room_id });
-                if (!room) {
-                    return res.status(404).json({ message: 'Room not found' });
-                }
-                const votes = await VoteModel.find({ roomId: room_id, scenarioId: parseInt(scenario_id) });
-
-                const correct = votes.filter(vote => vote.answer === true).length;
-                const incorrect = votes.filter(vote => vote.answer === false).length;
-
-                return res.status(200).json({ 
-                    statistic:{
-                    correct: correct,
-                    incorrect: incorrect,
-                    }
-                });
-
-            }
-            catch (error) {
-                console.error('Error fetching statistics:', error);
-                res.status(500).json({ message: 'Error fetching statistics', error });
-        }
-
-        
-    }
+      
 }
         
     
