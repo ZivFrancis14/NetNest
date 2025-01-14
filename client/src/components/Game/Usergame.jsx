@@ -24,11 +24,35 @@ const UserGame = () => {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     console.log('סיטואציה אנונימית:', inputValue);
-    setInputValue('');
-    setShowInput(false);
+
+    try{
+      const response = await fetch('http://localhost:5000/scenarios', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: inputValue }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add senario');
+      }
+
+      console.log('סיטואציה נוספה בהצלחה:', inputValue);
+
+      setInputValue('');
+      setShowInput(false);
+    }
+    catch (error) {
+      console.error('Error adding scenario:', error);
+    }
+
+   
   };
+
+
 
   return (
     <div className="phone-frame">
