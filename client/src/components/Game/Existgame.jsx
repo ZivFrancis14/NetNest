@@ -2,7 +2,7 @@ import '../index.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function ExistGame() {
+function Existgame() {
   const [joinCode, setJoinCode] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -49,5 +49,5 @@ function ExistGame() {
   );
 }
 
-export default ExistGame;
+export default Existgame;
 

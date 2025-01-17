@@ -1,11 +1,14 @@
 import '../index.css';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Newgame() {
   const [gameName, setGameName] = useState(''); 
   const [message, setMessage] = useState(''); 
   const [roomDetails, setRoomDetails] = useState(null); 
   const [gameCreated, setGameCreated] = useState(false); 
+  const navigate = useNavigate();
+
 
   const handleCreateGame = async () => {
     if (!gameName.trim()) {
@@ -38,6 +41,29 @@ function Newgame() {
       setRoomDetails(null); 
     }
   };
+  const handleJoinGame = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/rooms/join/${roomDetails.join_code}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.status) {
+        setMessage('Successfully joined the game!');
+        console.log('Room ID:', result.roomId); 
+        navigate('/playgame', { state: { roomId: result.roomId } });
+      } else {
+        setMessage(result.message || 'Failed to join the game. Please check the code.');
+      }
+    } catch (error) {
+      console.error('Error joining game:', error);
+      setMessage('An error occurred. Please try again later.');
+    }
+  };
 
   return (
     <div className="container">
@@ -66,6 +92,10 @@ function Newgame() {
               <p><strong>Room ID:</strong> {roomDetails.room_id}</p>
               <p><strong>Join Code:</strong> {roomDetails.join_code}</p>
               <p><strong>Owner ID:</strong> {roomDetails.owner_id}</p>
+              <br />
+              <button className="startGame" onClick={handleJoinGame}>
+        Start
+      </button>
             </div>
           )}
         </>

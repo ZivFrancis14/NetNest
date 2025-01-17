@@ -36,8 +36,7 @@ p {
   width: 50%;
 }
 
-.createButton,
-.joinButton {
+button {
   background-color: #dc5e90;
   color: white;
   padding: 10px 20px;
