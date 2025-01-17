@@ -3,19 +3,27 @@
 class BaseController {
     constructor(model, validationSchema) {
         this.model = model;
-        this.validationSchema = validationSchema; // Pass schema to the controller
+        this.validationSchema = validationSchema;
+    }
+    async beforeCreate(data) {
+        return data; 
     }
 
-    async create(req, res){
-        try{
-            const item = await this.model.create(req.body);
-            res.status(201).json({item});
-        }
-        catch (error) {
-            console.error(error);
+    async create(req, res) {
+        try {
+      
+            let data = req.body;
+            data = await this.beforeCreate(data);
+
+     
+            const item = await this.model.create(data);
+            res.status(201).json({ item });
+        } catch (error) {
+            console.error('Error creating item:', error);
             res.status(500).json({ message: 'Error creating item', error });
         }
     }
+
 
     async getAll(req, res){
         try{

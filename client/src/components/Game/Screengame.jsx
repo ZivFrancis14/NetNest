@@ -41,6 +41,7 @@ const Screengame = () => {
     setIsModalVisible(true);
     setButtonLabel('Show Results'); 
     setShowResults(false); 
+    setBubbles((prevBubbles) => prevBubbles.filter((b) => b.id !== bubble.id));
   };
 
   const handleButtonClick = () => {

@@ -6,6 +6,20 @@ class ScenarioController extends BaseController {
         super(ScenarioModel); 
     }
 
+    async beforeCreate(data) {
+          
+            const lastScenario = await this.model.findOne().sort({ scenarioId: -1 });
+
+            const nextScenarioId = lastScenario ? lastScenario.scenarioId + 1 : 1;
+
+            data.scenarioId = nextScenarioId;
+
+            return data;
+
+    }
+    
+
+
  
 }
 export default new ScenarioController();

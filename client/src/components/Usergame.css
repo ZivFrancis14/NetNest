@@ -1,0 +1,115 @@
+.phone-frame .user-game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+    font-family: 'Assistant', sans-serif;
+  }
+  
+  .phone-frame .user-game-container .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .phone-frame .user-game-container .usergame-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-family: 'Assistant', sans-serif;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    border: none;
+    outline: none;
+  }
+  
+  .phone-frame .user-game-container .correct-button {
+    background-color: #4caf50;
+    color: white;
+    font-weight: 600;
+    width: 150px;
+    height: 200px;
+  }
+  
+  .phone-frame .user-game-container .correct-button:hover {
+    background-color: #2a632c;
+  }
+  
+  .phone-frame .user-game-container .incorrect-button {
+    background-color: #f44336;
+    color: white;
+    font-weight: 600;
+    width: 150px;
+    height: 200px;
+  }
+  
+  .phone-frame .user-game-container .incorrect-button:hover {
+    background-color: #8f1e1c;
+  }
+  
+  .phone-frame .user-game-container .add-situation-button {
+    background-color: #5b1b42;
+    color: white;
+    font-weight: 600;
+    padding: 10px 20px;
+  }
+  
+  .phone-frame .user-game-container .add-situation-button:hover {
+    background-color: #d07cb0;
+    transform: scale(1.1);
+  }
+  
+  .phone-frame .user-game-container .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .phone-frame .user-game-container .text-input {
+    width: 90%;
+    max-width: 500px;
+    min-height: 60px;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Assistant', sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
+    word-break: break-word;
+    white-space: normal; 
+    line-height: 1.5; 
+  }
+  
+  .phone-frame .user-game-container .submit-button {
+    background-color: #ea0069;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Assistant', sans-serif;
+  }
+  
+  .phone-frame .user-game-container .submit-button:hover {
+    background-color: #930947;
+  }
+  
+  .phone-frame .user-game-container .waiting-text {
+    font-size: 1.7rem;
+    color: #333333;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Assistant', sans-serif;
+  }
+  

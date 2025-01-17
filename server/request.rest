@@ -1,4 +1,8 @@
 
+###
+GET http://localhost:5000/rooms/join/123e4567-e89b-12d3-a456-426614174000
+###
+
 ### Get All Scenarios
 GET http://localhost:5000/scenarios
 ###

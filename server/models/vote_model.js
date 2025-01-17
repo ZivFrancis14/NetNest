@@ -5,11 +5,13 @@ const voteSchema = new mongoose.Schema({
         required: true 
     },
     scenarioId: { 
-        type: Number, 
+        type: Number,
+        ref: 'Scenario', 
         required: true 
     },
     roomId: {
         type: String, 
+        ref: 'Room', 
         required: true 
     },
     answer: { 
