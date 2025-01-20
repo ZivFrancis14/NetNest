@@ -14,7 +14,7 @@ body {
   min-height: 100vh;
 }
 
-header {
+/* header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +25,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 10;
-}
+} */
 
 header a {
   color: rgb(212, 51, 169);
@@ -45,10 +45,11 @@ header a:hover {
   justify-content: center;
   text-align: center;
   gap: 20px;
-  padding: 20px;
-  height: 100%; /* Full height */
-  box-sizing: border-box; /* Ensure padding doesn't break layout */
+  height: 100%; /* Use all available height */
+  width: 100%; /* Ensure full width */
+  box-sizing: border-box;
 }
+
 
 .title {
   font-size: 3rem;
@@ -81,6 +82,18 @@ header a:hover {
 .button:active {
   transform: translateY(0);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.main {
+  flex: 1; /* Ensure it fills remaining space */
+  display: flex; /* Allow children to align properly */
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  background-color: #FFDCE8;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%; /* Full height within viewport */
 }
 
 /* Media Queries */
