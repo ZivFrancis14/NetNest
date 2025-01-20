@@ -33,16 +33,31 @@ GET http://localhost:5000/rooms/f4940e09-a4cc-488b-a27d-7e4eeed683c5/next-scenar
 ###
 
 ### Submit an Answer ✔️
+# POST http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/answers
+# Content-Type: application/json
+
+# {
+#   "scenario_id": 1,
+#   "answer": true,
+#   "comment": "This is my answer",
+#   "user_id": "111e4567-e89b-12d3-a456-426614174111"
+# }
+
 POST http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/answers
 Content-Type: application/json
 
 {
-  "scenario_id": 1,
-  "answer": true,
-  "comment": "This is my answer",
-  "user_id": "111e4567-e89b-12d3-a456-426614174111"
+  "scenarioId": 1,
+  "answer": true
 }
+
+
+
+
+
 ###
+
+
 
 ### Get Statistics✔️
 GET http://localhost:5000/rooms/123e4567-e89b-12d3-a456-426614174000/statistics/1

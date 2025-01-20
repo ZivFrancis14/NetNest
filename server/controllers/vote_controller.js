@@ -8,30 +8,34 @@ class VoteController extends BaseController {
         super(Vote); 
     }
     
-    async submitAnswer(req, res){
-      console.log("Params:", req.params); // הדפסת הפרמטרים של ה-URL
-      console.log("Body:", req.body); // הדפסת גוף הבקשה
-      const { room_id } = req.params;
-      const { scenarioId, answer, voteId} = req.body;
- 
-    try {
+    async submitAnswer(req, res) {
+      try {
+        // Extract room_id from params and data from body
+        const { room_id } = req.params;
+        const { scenarioId, answer, voteId } = req.body;
+    
+        console.log("DEBUG: room_id:", room_id);
+        console.log("DEBUG: scenarioId:", scenarioId);
+        console.log("DEBUG: answer:", answer);
+    
+        // Validate required fields
         if (!scenarioId || answer === undefined || !room_id) {
-          console.error("Missing required fields");
+          console.error("DEBUG: Missing required fields");
           return res.status(400).json({ status: false, message: "Missing required fields" });
         }
     
-        // check scenario corect
-        console.log("Validating scenario...");
-        const scenario = await ScenarioModel.findById(scenarioId);
+        // Check if scenario exists
+        console.log("DEBUG: Validating scenario...");
+        const scenario = await ScenarioModel.findOne({ scenarioId });
         if (!scenario) {
-          console.error("Scenario not found");
+          console.error("DEBUG: Scenario not found");
           return res.status(404).json({ status: false, message: "Scenario not found" });
         }
     
-        // create and save new vote
-        console.log("Creating new vote...");
+        // Create and save the vote
+        console.log("DEBUG: Creating new vote...");
         const newVote = new Vote({
-          voteId,
+          voteId: voteId || Date.now(),
           scenarioId,
           roomId: room_id,
           answer,
@@ -39,14 +43,15 @@ class VoteController extends BaseController {
     
         await newVote.save();
     
-        console.log("Vote saved successfully:", newVote);
-    
-        res.status(201).json({ status: true, message: "Answer submitted successfully" });
+        console.log("DEBUG: Vote saved successfully:", newVote);
+        return res.status(201).json({ status: true, message: "Answer submitted successfully" });
       } catch (error) {
-        console.error("Error submitting answer:", error);
-        res.status(500).json({ status: false, message: "Internal server error" });
+        console.error("DEBUG: Error submitting answer:", error);
+        return res.status(500).json({ status: false, message: "Internal server error" });
       }
-    };
+    }
+    
+    
 
     async getStatistics(req, res) {
       const { room_id, scenario_id } = req.params;
