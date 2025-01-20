@@ -112,4 +112,34 @@
     margin-top: 20px;
     font-family: 'Assistant', sans-serif;
   }
+
+  /* Media Queries */
+@media (max-width: 768px) {
+  .phone-frame .user-game-container .usergame-button {
+      font-size: 1rem;
+      width: 120px;
+      height: 150px;
+  }
+
+  .phone-frame .user-game-container .text-input {
+      max-width: 300px;
+      font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .phone-frame .user-game-container .usergame-button {
+      font-size: 0.9rem;
+      width: 100px;
+      height: 120px;
+  }
+
+  .phone-frame .user-game-container .text-input {
+      max-width: 250px;
+      font-size: 0.9rem;
+  }
+}
+
+
+  
   
