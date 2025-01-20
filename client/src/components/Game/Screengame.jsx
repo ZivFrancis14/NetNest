@@ -11,37 +11,42 @@ const Screengame = () => {
 
   const colors = useMemo(() => ['#d291bc', '#b565a7', '#8e44ad', '#6a1b9a', '#9c27b0'], []);
 
-  const getFixedPositions = () => [
-    { x: 100, y: 100 },
-    { x: window.innerWidth - 200, y: 100 },
-    { x: window.innerWidth / 2 - 50, y: window.innerHeight / 2 - 50 },
-    { x: 250, y: window.innerHeight - 200 },
-    { x: window.innerWidth - 350, y: window.innerHeight - 170 },
-  ];
+  const getDynamicPositions = (count) => {
+    const positions = [];
+    for (let i = 0; i < count; i++) {
+      positions.push({
+        x: Math.random() * (window.innerWidth - 100), // Random X position
+        y: Math.random() * (window.innerHeight - 100), // Random Y position
+      });
+    }
+    return positions;
+  };
 
   useEffect(() => {
     const fetchScenarios = async () => {
       try {
         const response = await fetch("http://localhost:5000/scenarios"); // API URL
         const data = await response.json();
-  
+
+        // Generate positions dynamically based on the number of scenarios
+        const positions = getDynamicPositions(data.items.length);
+
         // Process the data to create bubbles
-        const initialBubbles = getFixedPositions().map((position, index) => ({
-          id: data.items[index]?._id || index, // Unique ID (from database or fallback)
+        const initialBubbles = data.items.map((item, index) => ({
+          id: item._id, // Unique ID from the database
           color: colors[index % colors.length], // Color from the predefined list
-          position,
-          text: data.items[index]?.text || `No data`, // Text from the database
+          position: positions[index], // Position from the dynamic positions
+          text: item.text, // Text from the database
         }));
-  
+
         setBubbles(initialBubbles); // Update bubbles state
       } catch (error) {
         console.error('Error fetching scenarios:', error);
       }
     };
-  
+
     fetchScenarios();
   }, [colors]);
-  
 
   const handleBubbleClick = (bubble) => {
     setSelectedText(bubble.text);
