@@ -5,14 +5,41 @@ const UserGame = () => {
   const [showButtons, setShowButtons] = useState(true);
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [roomId] = useState(); 
+  const [scenarioId] = useState(1); // Example scenarioId
+
+  const submitVote = async (answer) => {
+    try {
+      const response = await fetch(`http://localhost:5000/rooms/${roomId}/answers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          scenarioId, // The current scenario's ID
+          answer, // true or false
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit vote');
+      }
+
+      console.log('Vote submitted successfully:', { scenarioId, answer });
+    } catch (error) {
+      console.error('Error submitting vote:', error);
+    }
+  };
 
   const handleCorrectClick = () => {
-    console.log('תקין');
+    console.log('Correct answer selected');
+    submitVote(true); // Send "true" for correct
     setShowButtons(false);
   };
 
   const handleIncorrectClick = () => {
-    console.log('לא תקין');
+    console.log('Incorrect answer selected');
+    submitVote(false); // Send "false" for incorrect
     setShowButtons(false);
   };
 
@@ -24,10 +51,10 @@ const UserGame = () => {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = async() => {
-    console.log('סיטואציה אנונימית:', inputValue);
+  const handleSubmit = async () => {
+    console.log('Adding anonymous situation:', inputValue);
 
-    try{
+    try {
       const response = await fetch('http://localhost:5000/scenarios', {
         method: 'POST',
         headers: {
@@ -37,22 +64,17 @@ const UserGame = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add senario');
+        throw new Error('Failed to add scenario');
       }
 
-      console.log('סיטואציה נוספה בהצלחה:', inputValue);
+      console.log('Scenario added successfully:', inputValue);
 
       setInputValue('');
       setShowInput(false);
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error adding scenario:', error);
     }
-
-   
   };
-
-
 
   return (
     <div className="phone-frame">
