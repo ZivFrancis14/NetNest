@@ -17,7 +17,6 @@ router.post('/join/:joinCode', (req, res) => roomController.joinRoom(req, res));
 router.post('/:room_id/answers', (req, res) => voteController.submitAnswer(req, res));
 router.get('/:room_id/statistics/:scenario_id', (req, res) => voteController.getStatistics(req, res));
 
-
 router.get('/:room_id/next-scenario/:owner_id', (req, res) => roomController.nextScenario(req, res));
 
 

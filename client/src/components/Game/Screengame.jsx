@@ -10,13 +10,6 @@ const Screengame = () => {
   const [showResults, setShowResults] = useState(false);
 
   const colors = useMemo(() => ['#d291bc', '#b565a7', '#8e44ad', '#6a1b9a', '#9c27b0'], []);
-  const sentences = useMemo(() => [
- 'Example 1',
-    'Example 2',
-    'Example 3',
-    'Example 4',
-    'Example 5',
-  ], []);
 
   const getFixedPositions = () => [
     { x: 100, y: 100 },
@@ -27,14 +20,28 @@ const Screengame = () => {
   ];
 
   useEffect(() => {
-    const initialBubbles = getFixedPositions().map((position, index) => ({
-      id: index,
-      color: colors[index % colors.length],
-      position,
-      text: sentences[index % sentences.length],
-    }));
-    setBubbles(initialBubbles);
-  }, [colors, sentences]);
+    const fetchScenarios = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/scenarios"); // API URL
+        const data = await response.json();
+  
+        // Process the data to create bubbles
+        const initialBubbles = getFixedPositions().map((position, index) => ({
+          id: data.items[index]?._id || index, // Unique ID (from database or fallback)
+          color: colors[index % colors.length], // Color from the predefined list
+          position,
+          text: data.items[index]?.text || `No data`, // Text from the database
+        }));
+  
+        setBubbles(initialBubbles); // Update bubbles state
+      } catch (error) {
+        console.error('Error fetching scenarios:', error);
+      }
+    };
+  
+    fetchScenarios();
+  }, [colors]);
+  
 
   const handleBubbleClick = (bubble) => {
     setSelectedText(bubble.text);
@@ -96,7 +103,7 @@ const Screengame = () => {
                   >
                     {votes.correct}
                   </div>
-                  <p className="column-label">תקין</p>
+                  <p className="column-label">Correct</p>
                 </div>
                 <div className="column">
                   <div
@@ -108,7 +115,7 @@ const Screengame = () => {
                   >
                     {votes.incorrect}
                   </div>
-                  <p className="column-label">לא תקין</p>
+                  <p className="column-label">Incorrect</p>
                 </div>
               </div>
             )}
