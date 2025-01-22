@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import styles from './RandomDuck.module.css';
 import { DuckContext } from '../../context/DuckContext';
 import FirstButton from '../common/FirstButton/FirstButton.jsx';
+import React from 'react';
 
 const apiUrl = import.meta.env.VITE_SERVER_API_URL;
 

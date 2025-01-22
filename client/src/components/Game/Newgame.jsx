@@ -1,6 +1,7 @@
 import '../index.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 function Newgame() {
   const [gameName, setGameName] = useState(''); 
@@ -89,9 +90,7 @@ function Newgame() {
           {roomDetails && (
             <div className="roomDetails">
               <h3>Room Details:</h3>
-              <p><strong>Room ID:</strong> {roomDetails.room_id}</p>
               <p><strong>Join Code:</strong> {roomDetails.join_code}</p>
-              <p><strong>Owner ID:</strong> {roomDetails.owner_id}</p>
               <br />
               <button className="startGame" onClick={handleJoinGame}>
         Start

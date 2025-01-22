@@ -14,19 +14,6 @@ body {
   min-height: 100vh;
 }
 
-/* header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  background-color: #fff;
-  padding: 15px 0;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-} */
-
 header a {
   color: rgb(212, 51, 169);
   text-decoration: none;

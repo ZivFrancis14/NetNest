@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../Usergame.css';
+import React from 'react';
 
 const UserGame = () => {
   const [showButtons, setShowButtons] = useState(true);

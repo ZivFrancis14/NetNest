@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import '../Screengame.css';
 import { useLocation } from 'react-router-dom';
+import React from 'react';
 
 const Screengame = () => {
   const location = useLocation();

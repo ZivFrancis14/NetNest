@@ -1,14 +1,13 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router'
+import React from 'react';
 import Home from './pages/HomePage/HomePage';
 import styles from './styles/App.module.css';
-import Existgame from './components/game/Existgame';
+import Existgame from './components/Game/Existgame';
 import Newgame from './components/Game/Newgame';
 import About from './components/AboutandContact/About';
 import Contact from './components/AboutandContact/Contact';
 import Screengame from './components/Game/Screengame';
 import Usergame from './components/Game/Usergame';
-
-// import projectLogo from './assets/project-logo.png'
 import safetylogo from './assets/safetylogo.png'
 
 function App() {
@@ -37,33 +36,6 @@ function App() {
         </main>
       </div>
     </BrowserRouter>
-
-
-
-
-    // <BrowserRouter>
-    //   <div className={styles.app}>
-    //     <header className={styles.appHeader}>
-    //       <img src={projectLogo} alt="Logo" className={styles.appLogo} />
-    //       <nav className={styles.appNav}>
-    //         <Link to="/" className={styles.appLink}>Home</Link>
-    //       </nav>
-    //     </header>
-    //     <main className={styles.main}>
-    //       <Routes>
-    //         <Route path="/" element={<Home />} />
-    //       </Routes>
-    //     </main>
-    //     <footer className={styles.footer}>
-    //       <p>&copy; 2024 My App</p>
-    //     </footer>
-    //   </div>
-    // </BrowserRouter>
-
-
-
-
-
   );
 }
 

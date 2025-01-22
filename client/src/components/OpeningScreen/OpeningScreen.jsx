@@ -1,16 +1,16 @@
 import { Link } from 'react-router';
 import './OpeningScreen.css';
+import React from 'react';
+
 
 
 function OpeningScreen() {
   const handleJoinGame = () => {
     console.log('Join an existing game');
-    // Add logic for joining an existing game here
   };
 
   const handleCreateGame = () => {
     console.log('Create a new game');
-    // Add logic for creating a new game here
   };
 
   return (
